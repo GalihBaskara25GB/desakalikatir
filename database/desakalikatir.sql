@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2021 at 03:20 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Nov 23, 2021 at 12:19 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,100 @@ SET time_zone = "+00:00";
 --
 -- Database: `desakalikatir`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rangking`
+--
+
+CREATE TABLE `rangking` (
+  `id` int(11) NOT NULL,
+  `id_vaksin` int(11) NOT NULL,
+  `nilai_preferensi` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rangking`
+--
+
+INSERT INTO `rangking` (`id`, `id_vaksin`, `nilai_preferensi`) VALUES
+(1, 19, 0.252525),
+(2, 20, 0.171717),
+(3, 21, 0),
+(4, 22, 0.0808081),
+(5, 23, 0),
+(6, 24, 0.181818),
+(7, 25, 0),
+(8, 26, 0),
+(9, 27, 0.262626),
+(10, 28, 0.0808081),
+(11, 29, 0),
+(12, 30, 0),
+(13, 31, 0),
+(14, 32, 0),
+(15, 33, 0),
+(16, 34, 0),
+(17, 35, 0),
+(18, 36, 0),
+(19, 37, 0.181818),
+(20, 38, 0.181818),
+(21, 39, 0),
+(22, 40, 0),
+(23, 41, 0.181818),
+(24, 42, 0.181818),
+(25, 43, 0.181818),
+(26, 44, 0),
+(27, 45, 0),
+(28, 46, 0.181818),
+(29, 47, 0.181818),
+(30, 48, 0),
+(31, 49, 0.10101),
+(32, 50, 0.10101),
+(33, 51, 0),
+(34, 52, 0.181818),
+(35, 53, 0.282828),
+(36, 54, 0.10101),
+(37, 55, 0.10101),
+(38, 56, 0.10101),
+(39, 57, 0),
+(40, 58, 0),
+(41, 59, 0),
+(42, 60, 0.10101),
+(43, 61, 0.10101),
+(44, 62, 0.10101),
+(45, 63, 0.10101),
+(46, 64, 0),
+(47, 65, 0),
+(48, 66, 0.10101),
+(49, 67, 0.181818),
+(50, 68, 0.282828);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smt_kriteria`
+--
+
+CREATE TABLE `smt_kriteria` (
+  `id_kriteria` int(11) NOT NULL,
+  `kriteria` varchar(50) NOT NULL,
+  `bobot` int(11) NOT NULL,
+  `tipe` enum('max','min','','') NOT NULL DEFAULT 'max'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `smt_kriteria`
+--
+
+INSERT INTO `smt_kriteria` (`id_kriteria`, `kriteria`, `bobot`, `tipe`) VALUES
+(1, 'usia', 85, 'max'),
+(2, 'alamat', 40, 'max'),
+(3, 'status', 50, 'max'),
+(4, 'pekerjaan', 70, 'max'),
+(5, 'penyakit', 90, 'max'),
+(6, 'terpapar', 70, 'max'),
+(7, 'vaksin', 90, 'max');
 
 -- --------------------------------------------------------
 
@@ -208,11 +302,25 @@ CREATE TABLE `user_sub_menu` (
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active`) VALUES
 (1, 1, 'Dashboard', 'dashboard', 'fas fa-fw fa-tachometer-alt', 1),
-(2, 1, 'Data Pendaftar Vaksin', 'data_pendaftar', 'fas fa-fw fa-clipboard-list', 1);
+(2, 1, 'Data Pendaftar Vaksin', 'data_pendaftar', 'fas fa-fw fa-clipboard-list', 1),
+(3, 1, 'Pembobotan Kriteria', 'smt_kriteria', 'fas fa-fw fa-clipboard-list', 1),
+(8, 1, 'Proses Smart', 'proses_smart', 'fas fa-fw fa-clipboard-list', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `rangking`
+--
+ALTER TABLE `rangking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `smt_kriteria`
+--
+ALTER TABLE `smt_kriteria`
+  ADD PRIMARY KEY (`id_kriteria`);
 
 --
 -- Indexes for table `tb_akun`
@@ -255,6 +363,18 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
+-- AUTO_INCREMENT for table `rangking`
+--
+ALTER TABLE `rangking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `smt_kriteria`
+--
+ALTER TABLE `smt_kriteria`
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tb_akun`
 --
 ALTER TABLE `tb_akun`
@@ -288,7 +408,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
