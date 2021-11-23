@@ -10,7 +10,7 @@ class Smt_kriteria extends CI_Controller
     public function index()
     {
         $data['judul'] = 'Bobot Kriteria';
-        $data['kriteria'] = $this->Smt_kriteria_model->getalldata();
+        $data['smt_kriteria'] = $this->Smt_kriteria_model->getalldata();
         $data['akun'] = $this->db->get_where('tb_akun', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->view('templates/header', $data);
         $this->load->view("templates/sidebar", $data);
@@ -67,6 +67,11 @@ class Smt_kriteria extends CI_Controller
     public function update()
     {
         $request = $this->input->post('kriteria');
-        print_r($request);
+        foreach ($request as $r) {
+            $this->Smt_kriteria_model->updateKriteria($r['id_kriteria'], array('kriteria' => $r['kriteria'], 
+                                                                            'bobot' => $r['bobot'])
+                                                                        );
+        }
+        redirect('smt_kriteria');
     }
 }

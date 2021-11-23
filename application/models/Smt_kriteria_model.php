@@ -26,4 +26,9 @@ class Smt_kriteria_model extends CI_Model
         $this->db->where('id_kriteria', $this->input->post('id_kriteria'));
         $this->db->update('smt_kriteria', $data);
     }
+    public function updateKriteria($id_kriteria, $data)
+    {
+        $this->db->where('id_kriteria', $id_kriteria);
+        $this->db->update('smt_kriteria', $data);
+    }
 }
